@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ur" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PicLinker V1</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">PicLinker</div>
+    <nav>
+      <button class="tab active" data-tab="home">Home</button>
+      <button class="tab" data-tab="history">History</button>
+    </nav>
+  </header>
+
+  <main>
+    <section id="home" class="panel active">
+      <h1>Your Images. One Simple Link.</h1>
+      <p class="sub">تصویر اپ لوڈ کریں اور اس کا مستقل لنک حاصل کریں۔</p>
+
+      <div id="dropzone" class="dropzone">
+        <p>Drag &amp; Drop یا فائل منتخب کریں</p>
+        <p class="hint">JPEG, PNG, GIF, WEBP, BMP — زیادہ سے زیادہ 3 MB</p>
+        <input type="file" id="fileInput" accept="image/*" hidden>
+        <button id="chooseBtn" class="btn primary">Browse Files</button>
+      </div>
+
+      <div id="preview" class="card hidden">
+        <img id="previewImg" alt="Preview">
+        <div class="row">
+          <input id="urlOutput" type="text" readonly>
+          <button id="copyBtn" class="btn">Copy URL</button>
+        </div>
+        <div class="row">
+          <a id="downloadBtn" class="btn" download>Download</a>
+          <a id="openBtn" class="btn" target="_blank" rel="noopener">Open</a>
+        </div>
+        <p id="status" class="status"></p>
+      </div>
+    </section>
+
+    <section id="history" class="panel">
+      <h2>Upload History</h2>
+      <ul id="historyList" class="history"></ul>
+      <p id="emptyHistory" class="hint">ابھی تک کوئی اپ لوڈ نہیں ہوا۔</p>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -11,7 +11,7 @@
 */
 const CONFIG = {
   CLOUD_NAME: "itqd9smr",
-  UPLOAD_PRESET: "PicLinkerV1",
+  UPLOAD_PRESET: "ml_default",
   MAX_BYTES: 3 * 1024 * 1024,
   ALLOWED: ["image/jpeg", "image/png", "image/gif", "image/webp", "image/bmp"],
 };

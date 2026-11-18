@@ -10,8 +10,8 @@
   4. نیچے CLOUD_NAME اور UPLOAD_PRESET میں یہ دونوں قدریں لکھ دیں۔
 */
 const CONFIG = {
-  CLOUD_NAME: "YOUR_CLOUD_NAME",
-  UPLOAD_PRESET: "YOUR_UNSIGNED_PRESET",
+  CLOUD_NAME: "itqd9smr",
+  UPLOAD_PRESET: "PicLinkerV1",
   MAX_BYTES: 3 * 1024 * 1024,
   ALLOWED: ["image/jpeg", "image/png", "image/gif", "image/webp", "image/bmp"],
 };

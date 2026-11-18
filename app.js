@@ -62,8 +62,21 @@ function setStatus(msg, type = "") {
   statusEl.className = "status " + type;
 }
 
+let currentBlobUrl = null;
+
+// Clear every link from the previous upload so Copy / Open / Download
+// never point to an older image while a new file is being handled.
+function resetOutputs() {
+  urlOutput.value = "";
+  downloadBtn.removeAttribute("href");
+  downloadBtn.removeAttribute("download");
+  openBtn.removeAttribute("href");
+}
+
 async function handleFile(file) {
   if (!file) return;
+
+  resetOutputs();
 
   if (!CONFIG.ALLOWED.includes(file.type)) {
     setStatus("یہ فائل فارمیٹ سپورٹ نہیں ہے۔", "error");
@@ -74,11 +87,11 @@ async function handleFile(file) {
     return;
   }
 
-  // Local preview right away
-  const localUrl = URL.createObjectURL(file);
-  previewImg.src = localUrl;
+  // Local preview right away (free the previous preview's blob)
+  if (currentBlobUrl) URL.revokeObjectURL(currentBlobUrl);
+  currentBlobUrl = URL.createObjectURL(file);
+  previewImg.src = currentBlobUrl;
   preview.classList.remove("hidden");
-  urlOutput.value = "";
   setStatus("اپ لوڈ ہو رہا ہے…");
 
   if (CONFIG.CLOUD_NAME === "YOUR_CLOUD_NAME") {
@@ -95,8 +108,9 @@ async function handleFile(file) {
       `https://api.cloudinary.com/v1_1/${CONFIG.CLOUD_NAME}/image/upload`,
       { method: "POST", body: form }
     );
-    const data = await res.json();
+    const data = await res.json().catch(() => null);
     if (!res.ok) throw new Error(data?.error?.message || "Upload failed");
+    if (!data?.secure_url) throw new Error("Cloudinary نے لنک واپس نہیں کیا۔");
 
     const url = data.secure_url;
     urlOutput.value = url;
